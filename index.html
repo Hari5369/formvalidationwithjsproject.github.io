@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("wallhaven-9mw29d_2560x1440.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: rgba(red, green, blue, 1);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            border-color:teal;
+            border-style: groove;
+            border-width: 1px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            padding-left: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: yellow;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid teal;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        input:focus {
+            border-color: #007BFF;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-left: 10px;
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+            border-radius: 20px;
+            border-color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #errorMessage {
+            margin-top: 15px;
+            font-size: 20px;
+            color: red;
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form id="myForm">
+            <span><label for="name"><span>Name</span></label></span>
+            <input type="text" id="name" name="name">
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+
+            <button type="submit">Submit</button>
+        </form>
+        <p id="errorMessage" style="text-align: center;"></p>
+    </div>
+
+    <script>
+        const form = document.getElementById('myForm');
+        const errorMessage = document.getElementById('errorMessage');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            if (!name || !email) {
+                errorMessage.textContent = 'Both fields are required!';
+            } 
+          else if (!validateName(name)) {
+                alert("Enter a valid name. Name should not contain numbers or special characters.");
+                return;
+            }
+            else if (!validateEmail(email)) {
+                errorMessage.textContent = 'Please enter a valid email address!';
+            } else {
+                errorMessage.textContent = '';
+                alert('Form submitted successfully!');
+            }
+        });
+
+        function validateEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+        function validateName(name) {
+            const regex = /^[A-Za-z\s]+$/; // Only allows alphabets and spaces
+            return regex.test(name);
+        }
+    </script>
+</body>
+</html>
